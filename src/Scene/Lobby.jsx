@@ -2,11 +2,6 @@ import { useGLTF } from "@react-three/drei";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { useEffect, useRef, useState } from "react";
 import { Quaternion, Vector3 } from "three";
-import Character from "./Components/Character"; // Import the Character component
-import Screen from "./Components/Screen"; // Import the Screen component
-import "./index.css";
-import Lobby from "./Scene/Lobby"; // Import the Lobby component
-
 function Model({ url }) {
   const { scene } = useGLTF(url);
   const { camera } = useThree();
@@ -26,7 +21,6 @@ function Model({ url }) {
 
   return <primitive object={scene} />;
 }
-
 function CameraControls({ onSceneChange }) {
   const { camera, scene } = useThree();
   const [movement, setMovement] = useState({
@@ -42,17 +36,21 @@ function CameraControls({ onSceneChange }) {
   const yaw = useRef(new Quaternion());
   const pitch = useRef(new Quaternion());
 
+  // // Define camera movement boundaries
+  // const [minX, maxX] = [-19.8813049074214, -0.6017149525969674]; // X-axis boundaries
+  // const [minY, maxY] = [2.254644701729502, 3.254644701729502]; // Y-axis boundaries
+  // const [minZ, maxZ] = [-16.239667846519914, 0]; // Z-axis boundaries
   // Define camera movement boundaries
-  const [minX, maxX] = [-19.8813049074214, -0.6017149525969674]; // X-axis boundaries
-  const [minY, maxY] = [2.254644701729502, 3.254644701729502]; // Y-axis boundaries
-  const [minZ, maxZ] = [-16.239667846519914, 0]; // Z-axis boundaries
+  const [minX, maxX] = [-100, 100]; // X-axis boundaries
+  const [minY, maxY] = [-2.5, 2.5]; // Y-axis boundaries
+  const [minZ, maxZ] = [-100, 100]; // Z-axis boundaries
 
   // Define Y-axis positions for sitting and standing
   const standingHeight = maxY; // Standing height
   const sittingHeight = minY; // Sitting height
 
   // Door position and dimensions
-  const doorPosition = new Vector3(-10, 0, -15); // Example door position
+  const doorPosition = new Vector3(10, 2.254644701729502, 10); // Example door position
   const doorWidth = 2; // Example door width
   const doorHeight = 3; // Example door height
 
@@ -154,7 +152,7 @@ function CameraControls({ onSceneChange }) {
       // Only update the X and Z components of the camera's position
       camera.position.x += moveDirection.current.x;
       camera.position.z += moveDirection.current.z;
-
+      console.log(camera.position)
       // Clamp camera position within boundaries (excluding Y-axis)
       camera.position.x = Math.max(minX, Math.min(maxX, camera.position.x));
       camera.position.z = Math.max(minZ, Math.min(maxZ, camera.position.z));
@@ -176,94 +174,41 @@ function CameraControls({ onSceneChange }) {
   return null;
 }
 
-function useCanvasSize() {
-  const [size, setSize] = useState({
-    width: window.innerWidth,
-    height: window.innerHeight,
-  });
-
-  useEffect(() => {
-    const handleResize = () => {
-      setSize({ width: window.innerWidth, height: window.innerHeight });
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  return size;
-}
-
-export default function App() {
-  const { width, height } = useCanvasSize();
-  const [currentScene, setCurrentScene] = useState("classroom");
-
+export default function Lobby() {
+  const [currentScene, setCurrentScene] = useState("lobby");
   const handleSceneChange = () => {
-    setCurrentScene("lobby");
+    console.log("Switching to Lobby scene");
   };
 
-  if (currentScene === "lobby") {
-    return <Lobby />;
-  }
-
-  const animationUrls = [
-    "/animation/male-standing.fbx",
-    "/animation/male-greeting.fbx",
-    "/animation/male-talking.fbx",
-    "/animation/male-Talking2.fbx",
-  ];
-
   return (
-      <div className="fixed inset-0 w-screen h-screen ">
-        <Canvas
-          style={{ width: "100vw", height: "100vh" }}
-          camera={{
-            position: [0, 3.2, 0],
-            rotation: [0, 0, 0],
-            fov: 100,
-            near: 0.1,
-            far: 100,
-            aspect: width / height,
-          }}
-          gl={{ antialias: true }}
-          linear
-          dpr={[1, 2]}
-        >
-          <color attach="background" args={["#000000"]} />
-          <fog attach="fog" args={["#000000", 0, 30]} />
+    <div className="fixed inset-0 w-screen h-screen">
+      <Canvas
+        style={{ width: "100vw", height: "100vh" }}
+        camera={{
+          position: [1, 0, 1], // Adjusted camera position for better visibility
+          rotation: [0, 0, 0],
+          fov: 10, // Adjusted FOV for better visibility
+          near: 0.1,
+          far: 100,
+        }}
+        gl={{ antialias: true }}
+        linear
+        dpr={[1, 2]}
+      >
+        <color attach="background" args={["#000000"]} />
+        <fog attach="fog" args={["#000000", 0, 30]} />
 
-          <ambientLight intensity={0.8} />
-          <directionalLight position={[0, 3.2, 0]} intensity={1} castShadow />
-          <hemisphereLight
-            skyColor="#ffffff"
-            groundColor="#000000"
-            intensity={0.5}
-          />
+        <ambientLight intensity={0.8} />
+        <directionalLight position={[0, 3.2, 0]} intensity={1} castShadow />
+        <hemisphereLight
+          skyColor="#ffffff"
+          groundColor="#000000"
+          intensity={0.5}
+        />
 
-<pointLight position={[4.355419323717778, 4, -6.4732341437899485]} intensity={1} color="#ffffff" />
-        <pointLight position={[4.142399511371619, 4, -11.34592639006471]} intensity={1} color="#ffffff" />
-        <pointLight position={[-2.527300420645529, 5, -4.875420100860967]} intensity={1} color="#ffffff" />
-        <pointLight position={[-1.9480578366581578, 5, -12.982502337486206]} intensity={10} color="#ffffff" />
-        <pointLight position={[-9.130559617331466, 5, -3.6238903176399626]} intensity={10} color="#ffffff" />
-        <pointLight position={[-9.468572289040646, 5, -11.940727358135227]} intensity={10} color="#ffffff" />
-        <pointLight position={[-16.346997480584317, -5,-12.673959222107225]} intensity={10} color="#ffffff" />
-        <pointLight position={[-16.373325816645693, -5, -3.969542383777019]} intensity={10} color="#ffffff" />
-
-          <Model url="/Models/japanese_classroom.glb" />
-          <Character
-            url="/Models/Character01.glb"
-            position={new Vector3(1.6017149525969674, 0.3, -11.751844479594805)}
-            scale={new Vector3(2, 2, 2)}
-            animationUrls={animationUrls}
-          />
-          <Screen
-            url="Models/projector_screen_7mb.glb"
-            position={new Vector3(2.90017149525969674, 5, -8.093239927086778)}
-            scale={new Vector3(1, 1, 1)}
-            videoUrl="./src/videos/videoplayback.mp4"
-          />
-          <CameraControls onSceneChange={handleSceneChange} />
-        </Canvas>
-      </div>
+        <Model url='/Models/school_hallway.glb' />
+        <CameraControls onSceneChange={handleSceneChange} />
+      </Canvas>
+    </div>
   );
 }

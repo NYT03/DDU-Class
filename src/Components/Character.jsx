@@ -6,7 +6,7 @@ import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
 
 function Character({ url, position, scale, animationUrls }) {
   const { scene } = useGLTF(url);
-  console.log("hi");
+  // console.log("hi");
   const characterRef = useRef();
   const mixerRef = useRef();
   const [animations, setAnimations] = useState([]);
@@ -25,7 +25,7 @@ function Character({ url, position, scale, animationUrls }) {
         )
       );
       setAnimations(loadedAnimations);
-      console.log("Animations loaded:", loadedAnimations);
+      // console.log("Animations loaded:", loadedAnimations);
     };
 
     loadAnimations();
@@ -37,7 +37,7 @@ function Character({ url, position, scale, animationUrls }) {
       mixerRef.current = new THREE.AnimationMixer(scene);
 
       // Play the first animation
-      const action = mixerRef.current.clipAction(animations[currentAnimationIndex]);
+      const action = mixerRef.current.clipAction(animations[3]);
       action.play();
 
       // When the animation finishes, play the next one
