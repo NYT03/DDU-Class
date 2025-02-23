@@ -214,56 +214,89 @@ export default function App() {
   ];
 
   return (
-      <div className="fixed inset-0 w-screen h-screen ">
-        <Canvas
-          style={{ width: "100vw", height: "100vh" }}
-          camera={{
-            position: [0, 3.2, 0],
-            rotation: [0, 0, 0],
-            fov: 100,
-            near: 0.1,
-            far: 100,
-            aspect: width / height,
-          }}
-          gl={{ antialias: true }}
-          linear
-          dpr={[1, 2]}
-        >
-          <color attach="background" args={["#000000"]} />
-          <fog attach="fog" args={["#000000", 0, 30]} />
+    <div className="fixed inset-0 w-screen h-screen ">
+      <Canvas
+        style={{ width: "100vw", height: "100vh" }}
+        camera={{
+          position: [0, 3.2, 0],
+          rotation: [0, 0, 0],
+          fov: 100,
+          near: 0.1,
+          far: 100,
+          aspect: width / height,
+        }}
+        gl={{ antialias: true }}
+        linear
+        dpr={[1, 2]}
+      >
+        <color attach="background" args={["#000000"]} />
+        <fog attach="fog" args={["#000000", 0, 30]} />
 
-          <ambientLight intensity={0.8} />
-          <directionalLight position={[0, 3.2, 0]} intensity={1} castShadow />
-          <hemisphereLight
-            skyColor="#ffffff"
-            groundColor="#000000"
-            intensity={0.5}
-          />
+        <ambientLight intensity={0.8} />
+        <directionalLight position={[0, 3.2, 0]} intensity={1} castShadow />
+        <hemisphereLight
+          skyColor="#ffffff"
+          groundColor="#000000"
+          intensity={0.5}
+        />
 
-<pointLight position={[4.355419323717778, 4, -6.4732341437899485]} intensity={1} color="#ffffff" />
-        <pointLight position={[4.142399511371619, 4, -11.34592639006471]} intensity={1} color="#ffffff" />
-        <pointLight position={[-2.527300420645529, 5, -4.875420100860967]} intensity={1} color="#ffffff" />
-        <pointLight position={[-1.9480578366581578, 5, -12.982502337486206]} intensity={10} color="#ffffff" />
-        <pointLight position={[-9.130559617331466, 5, -3.6238903176399626]} intensity={10} color="#ffffff" />
-        <pointLight position={[-9.468572289040646, 5, -11.940727358135227]} intensity={10} color="#ffffff" />
-        <pointLight position={[-16.346997480584317, -5,-12.673959222107225]} intensity={10} color="#ffffff" />
-        <pointLight position={[-16.373325816645693, -5, -3.969542383777019]} intensity={10} color="#ffffff" />
+        <pointLight
+          position={[4.355419323717778, 4, -6.4732341437899485]}
+          intensity={1}
+          color="#ffffff"
+        />
+        <pointLight
+          position={[4.142399511371619, 4, -11.34592639006471]}
+          intensity={1}
+          color="#ffffff"
+        />
+        <pointLight
+          position={[-2.527300420645529, 5, -4.875420100860967]}
+          intensity={1}
+          color="#ffffff"
+        />
+        <pointLight
+          position={[-1.9480578366581578, 5, -12.982502337486206]}
+          intensity={10}
+          color="#ffffff"
+        />
+        <pointLight
+          position={[-9.130559617331466, 5, -3.6238903176399626]}
+          intensity={10}
+          color="#ffffff"
+        />
+        <pointLight
+          position={[-9.468572289040646, 5, -11.940727358135227]}
+          intensity={10}
+          color="#ffffff"
+        />
+        <pointLight
+          position={[-16.346997480584317, -5, -12.673959222107225]}
+          intensity={10}
+          color="#ffffff"
+        />
+        <pointLight
+          position={[-16.373325816645693, -5, -3.969542383777019]}
+          intensity={10}
+          color="#ffffff"
+        />
 
-          <Model url="/Models/japanese_classroom.glb" />
-          <Character
-            url="/Models/Character01.glb"
-            position={new Vector3(1.6017149525969674, 0.3, -11.751844479594805)}
-            scale={new Vector3(2, 2, 2)}
-            animationUrls={animationUrls}
-          />
-          <Screen
-            url="Models/projector_screen_7mb.glb"
-            position={new Vector3(2.90017149525969674, 5, -8.093239927086778)}
-            scale={new Vector3(1, 1, 1)}
-            videoUrl="./src/videos/videoplayback.mp4"
-          />
-          <CameraControls onSceneChange={handleSceneChange} />
-        </Canvas>
-      </div>
+        <Model url="/Models/japanese_classroom.glb" />
+        {/* <audio src=""/> */}
+        <Character
+          url="/Models/Character01.glb"
+          position={new Vector3(1.6017149525969674, 0.3, -11.751844479594805)}
+          scale={new Vector3(2, 2, 2)}
+          animationUrls={animationUrls}
+        />
+        <Screen
+          url="Models/projector_screen_7mb.glb"
+          position={new Vector3(2.90017149525969674, 5, -8.093239927086778)}
+          scale={new Vector3(1, 1, 1)}
+          videoUrl="./src/videos/Video.mp4"
+        />
+        <CameraControls onSceneChange={handleSceneChange} />
+      </Canvas>
+    </div>
   );
 }
