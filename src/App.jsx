@@ -166,7 +166,7 @@ export default function App() {
   ];
 
   return (
-    <div className="fixed inset-0 w-screen h-screen overflow-hidden">
+    <div className="fixed inset-0 w-screen h-screen ">
       <Canvas
         style={{ width: '100vw', height: '100vh' }}
         camera={{
