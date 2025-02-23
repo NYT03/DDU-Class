@@ -37,12 +37,12 @@ function CameraControls() {
   const pitch = useRef(new Quaternion());
 
   // Define camera movement boundaries (you can adjust these based on your model's size)
-  const [minX, maxX] = [-100, 100.6017149525969674]; // Example boundaries for X-axis
-  const [minY, maxY] = [2.254644701729502, 3.254644701729502];    // Example boundaries for Y-axis
-  const [minZ, maxZ] = [-100.239667846519914,100]; // Example boundaries for Z-axis
-  // const [minX, maxX] = [-19.8813049074214, -0.6017149525969674]; // Example boundaries for X-axis
+  // const [minX, maxX] = [-100, 100.6017149525969674]; // Example boundaries for X-axis
   // const [minY, maxY] = [2.254644701729502, 3.254644701729502];    // Example boundaries for Y-axis
-  // const [minZ, maxZ] = [-16.239667846519914, 0]; // Example boundaries for Z-axis
+  // const [minZ, maxZ] = [-100.239667846519914,100]; // Example boundaries for Z-axis
+  const [minX, maxX] = [-19.8813049074214, -0.6017149525969674]; // Example boundaries for X-axis
+  const [minY, maxY] = [2.254644701729502, 3.254644701729502];    // Example boundaries for Y-axis
+  const [minZ, maxZ] = [-16.239667846519914, 0]; // Example boundaries for Z-axis
 
   // Define Y-axis positions for sitting and standing
   const standingHeight = maxY; // Standing height
